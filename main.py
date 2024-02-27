@@ -82,11 +82,11 @@ def varChange(*args):
             where, what = param.split("=")
             evaluationString = re.sub(
                 "{" + where + "}", what, evaluationString)
-        try:
-            print("After insertion: ", evaluationString)
-            resultLabel.config(text=str(eval(evaluationString)))
-        except:
-            resultLabel.config(text="Invalid Input GRAAAHHH!!")
+    try:
+        print("After insertion: ", evaluationString)
+        resultLabel.config(text=str(eval(evaluationString)))
+    except:
+        resultLabel.config(text="Invalid Input GRAAAHHH!!")
 
 
 # Calculation Panel
@@ -111,6 +111,12 @@ def saveCurrentInputToHistory(event=None):
     if entryVariable.get() in history:
         return
 
+    history.append(entryVariable.get())
+
+    with open(historyFilePath, "w") as file:
+        file.write(json.dumps(history))
+
+    updateListBox()
 # Set Entry from History function
 
 
